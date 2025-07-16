@@ -1,0 +1,1652 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran Interaktif</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, #e3f2fd, #fce4ec);
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+    overflow-x: hidden;
+}
+       body::before,
+body::after {
+    /* Ganti ukurannya jadi persentase agar aman di mobile */
+    width: 100vw;
+    height: 100vw;
+    background: white;
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.2;
+}
+        body::before {
+            top: -30%;
+            right: -30%;
+        }
+        body::after {
+            bottom: -50%;
+            left: -30%;
+        }
+	html, body {
+    overflow-x: hidden;
+}
+
+
+.login-box {
+    background: linear-gradient(135deg, #ce9ffc, #f9c7d9); /* Ganti background */
+    padding: 30px;
+    border-radius: 12px;
+    max-width: 300px;
+    margin: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+.login-box h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.login-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 6px;
+    outline: none;
+}
+
+.login-box button {
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Ganti background tombol */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.login-box button:hover {
+    background: linear-gradient(135deg, #5e0dca, #1d60e7); /* Hover efek */
+}
+    .hidden {
+      display: none;
+    }
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #4dd4a3;
+            position: fixed;
+            left: -250px;
+            transition: left 0.3s ease-in-out;
+            padding-top: 20px;
+            z-index: 1300;
+        }
+        .sidebar h2 {
+            color: white;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 5px;
+            text-align: left;
+        }
+        .sidebar ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 16px;
+            display: block;
+        }
+        .sidebar ul li:hover {
+            background: #f8d444;
+        }
+        .toggle-btn {
+            position: fixed;
+            left: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            background: #f8d444;
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: white;
+            z-index: 1400;
+        }
+        .close-btn {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: white;
+            background: #f8d444;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+        .header {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            border-radius: 10px;
+            position: sticky;
+            top: 0;
+            z-index: 1200;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .header span {
+            flex: 80%;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+	    color: #4dd4a3;
+        }
+        .header img {
+            flex: 20%;
+            max-width: 60px;
+            height: auto;
+            margin-left: 10px;
+        }
+        .content {
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+        .card-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+        .card {
+            padding: 20px;
+            width: 250px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            color: white;
+        }
+        .card:nth-child(1) { background: #4dd4a3; }
+        .card:nth-child(2) { background: #4dd4a3; }
+        .card:nth-child(3) { background: #4dd4a3; }
+        .card:nth-child(4) { background: #4dd4a3; }
+	.card:nth-child(5) { background: #4dd4a3; }
+        .card:nth-child(6) { background: #4dd4a3; }
+        .card:nth-child(7) { background: #4dd4a3; }
+        .card:nth-child(8) { background: #4dd4a3; }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        .card a {
+            text-decoration: none;
+            font-size: 18px;
+            color: white;
+            font-weight: bold;
+        }
+/* Tambahan untuk responsif mobile */
+@media screen and (max-width: 768px) {
+  .card-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+  }
+
+  .sidebar {
+    width: 80%;
+    left: -80%;
+  }
+
+  .toggle-btn {
+    font-size: 20px;
+    padding: 8px 12px;
+  }
+
+  .header span {
+    font-size: 20px;
+  }
+
+  .login-box {
+    width: 90%;
+    max-width: 90%;
+    margin: 20px auto;
+  }
+
+  body::before,
+  body::after {
+    display: none;
+  }
+}
+    </style>
+</head>
+<body>
+<div class="login-box" id="loginForm">
+  <h2>Login</h2>
+  <input type="text" id="username" placeholder="Username" /><br><br>
+  <input type="password" id="password" placeholder="Password" /><br><br>
+  <button onclick="checkLogin()">Masuk</button>
+  <p id="errorMsg" style="color:red;"></p>
+</div>
+
+<div id="content22" class="hidden">
+
+    <div class="sidebar" id="sidebar">
+        <span class="close-btn" onclick="toggleSidebar()">&times;</span>
+        <h2 class=" text-2xl text-semibold ">Menu</h2>
+        <ul class="text-black p-6 bg-[#4dd4a3] rounded-lg shadow-md">
+  <li class="mb-3"><a href="#1.-What-delicious-bakso" class="hover:text-white">1. What delicious bakso!</a></li>
+  <li class="mb-3"><a href="#2.-I-want-an-ice-cream-cone" class="hover:text-white">2. I want an ice cream cone</a></li>
+  <li class="mb-3"><a href="#3.-How-much-is-it" class="hover:text-white">3. How much is it?</a></li>
+  <li class="mb-3"><a href="#4.-I-have-a-stomachache" class="hover:text-white">4. I have a stomachache</a></li>
+  <li class="mb-3"><a href="#5.-What-a-nice-skirt" class="hover:text-white">5. What a nice skirt!</a></li>
+</ul>
+
+
+    </div>
+    
+    <div class="toggle-btn" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+    </div>
+    
+    <div class="header">
+        <span>Media Pembelajaran Interaktif</span>
+        <img src="https://zahwan93.github.io/Kebun-Ilmu-Matematika-SMP/logo.png" alt="Logo">
+    </div>
+    
+    <!-- Konten Utama -->
+    <div class="ml-0 w-full max-w-7xl mx-auto bg-white p-8 rounded-lg shadow-2xl" style="margin-right: 10px;">
+        <h1 class="text-3xl font-bold text-center text-[#4dd4a3] mb-6">B Inggris Kelas 5 SD</h1>
+        
+        <!-- B Inggris SD -->
+        <div id="B Inggris " class="mb-8">
+            <h1 class="text-2xl font-bold mb-4 text-[#4dd4a3]"> B Inggris </h1>
+	<ul class="text-black p-6 bg-[#4dd4a3] rounded-lg shadow-md">
+  <li class="mb-3"><a href="#1.-What-delicious-bakso" class="hover:text-white">1. What delicious bakso!</a></li>
+  <li class="mb-3"><a href="#2.-I-want-an-ice-cream-cone" class="hover:text-white">2. I want an ice cream cone</a></li>
+  <li class="mb-3"><a href="#3.-How-much-is-it" class="hover:text-white">3. How much is it?</a></li>
+  <li class="mb-3"><a href="#4.-I-have-a-stomachache" class="hover:text-white">4. I have a stomachache</a></li>
+  <li class="mb-3"><a href="#5.-What-a-nice-skirt" class="hover:text-white">5. What a nice skirt!</a></li>
+</ul>
+
+
+<br>
+        <div id="1.-What-delicious-bakso" class="text-gray-800 space-y-6">
+
+  <h2 class="text-2xl font-bold text-[#4dd4a3]">1. What Delicious Bakso!</h2>
+
+  <!-- A. Vocabulary Table -->
+  <div>
+    <h3 class="text-xl font-semibold mb-2 text-[#4dd4a3]">A. Vocabulary Table (Tabel Kosakata)</h3>
+    <p class="mb-3">Kosakata penting terkait makanan dan ekspresi memuji makanan:</p>
+
+    <table class="table-auto w-full border border-gray-400 text-left">
+      <thead class="bg-[#4dd4a3] text-white">
+        <tr>
+          <th class="border border-gray-300 px-4 py-2">English Word</th>
+          <th class="border border-gray-300 px-4 py-2">Part of Speech</th>
+          <th class="border border-gray-300 px-4 py-2">Meaning (Arti)</th>
+        </tr>
+      </thead>
+      <tbody class="text-gray-800">
+        <tr><td class="border px-4 py-2">Bakso</td><td class="border px-4 py-2">Noun</td><td class="border px-4 py-2">Meatball (Indonesian food)</td></tr>
+        <tr><td class="border px-4 py-2">Delicious</td><td class="border px-4 py-2">Adjective</td><td class="border px-4 py-2">Lezat / Enak</td></tr>
+        <tr><td class="border px-4 py-2">Yummy</td><td class="border px-4 py-2">Adjective (informal)</td><td class="border px-4 py-2">Lezat sekali (gaul)</td></tr>
+        <tr><td class="border px-4 py-2">Tasty</td><td class="border px-4 py-2">Adjective</td><td class="border px-4 py-2">Enak / Sedap</td></tr>
+        <tr><td class="border px-4 py-2">Spicy</td><td class="border px-4 py-2">Adjective</td><td class="border px-4 py-2">Pedas</td></tr>
+        <tr><td class="border px-4 py-2">Soup</td><td class="border px-4 py-2">Noun</td><td class="border px-4 py-2">Sup / Kuah</td></tr>
+        <tr><td class="border px-4 py-2">Noodles</td><td class="border px-4 py-2">Noun</td><td class="border px-4 py-2">Mie</td></tr>
+        <tr><td class="border px-4 py-2">Hot</td><td class="border px-4 py-2">Adjective</td><td class="border px-4 py-2">Panas</td></tr>
+        <tr><td class="border px-4 py-2">Favorite</td><td class="border px-4 py-2">Adjective/Noun</td><td class="border px-4 py-2">Favorit / Kesukaan</td></tr>
+        <tr><td class="border px-4 py-2">Hungry</td><td class="border px-4 py-2">Adjective</td><td class="border px-4 py-2">Lapar</td></tr>
+        <tr><td class="border px-4 py-2">Full</td><td class="border px-4 py-2">Adjective</td><td class="border px-4 py-2">Kenyang</td></tr>
+        <tr><td class="border px-4 py-2">Eat</td><td class="border px-4 py-2">Verb</td><td class="border px-4 py-2">Makan</td></tr>
+        <tr><td class="border px-4 py-2">Buy</td><td class="border px-4 py-2">Verb</td><td class="border px-4 py-2">Membeli</td></tr>
+        <tr><td class="border px-4 py-2">Street food</td><td class="border px-4 py-2">Noun</td><td class="border px-4 py-2">Makanan kaki lima</td></tr>
+        <tr><td class="border px-4 py-2">Vendor</td><td class="border px-4 py-2">Noun</td><td class="border px-4 py-2">Penjual</td></tr>
+        <tr><td class="border px-4 py-2">Bowl</td><td class="border px-4 py-2">Noun</td><td class="border px-4 py-2">Mangkok</td></tr>
+        <tr><td class="border px-4 py-2">Chili sauce</td><td class="border px-4 py-2">Noun</td><td class="border px-4 py-2">Sambal</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- B. Example Conversation -->
+  <div>
+    <h3 class="text-xl font-semibold mb-2 text-[#4dd4a3]">B. Example Conversation (Contoh Percakapan)</h3>
+    <p class="mb-3">Percakapan dua teman yang sedang makan bakso:</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- English -->
+      <div class="bg-[#4dd4a3] text-black p-4 rounded-md shadow-sm space-y-2">
+        <p><strong>A:</strong> What are you eating?</p>
+        <p><strong>B:</strong> I’m eating bakso.</p>
+        <p><strong>A:</strong> Oh, it smells so good!</p>
+        <p><strong>B:</strong> Yes, it is! What delicious bakso!</p>
+        <p><strong>A:</strong> Where did you buy it?</p>
+        <p><strong>B:</strong> At the street food vendor near the school.</p>
+      </div>
+
+      <!-- Indonesian Translation -->
+      <div class="bg-yellow-100 text-black p-4 rounded-md shadow-sm space-y-2">
+        <p><strong>A:</strong> Kamu sedang makan apa?</p>
+        <p><strong>B:</strong> Aku sedang makan bakso.</p>
+        <p><strong>A:</strong> Wah, baunya enak sekali!</p>
+        <p><strong>B:</strong> Iya! Baksonya enak sekali!</p>
+        <p><strong>A:</strong> Kamu beli di mana?</p>
+        <p><strong>B:</strong> Di penjual kaki lima dekat sekolah.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- C. Example Narrative -->
+  <div>
+    <h3 class="text-xl font-semibold mb-2 text-[#4dd4a3]">C. Example Narrative (Contoh Narasi Pendek)</h3>
+    <p class="mb-3">Teks narasi tentang pengalaman makan bakso:</p>
+
+    <!-- English Version -->
+    <div class="bg-[#4dd4a3] text-black p-4 rounded-md shadow space-y-3 leading-relaxed">
+      <p>Yesterday, I went to a small food stall with my friends. We were very hungry after playing football.</p>
+      <p>I ordered a bowl of bakso. It was hot, spicy, and very tasty. The meatballs were big and soft. I added noodles, fried onions, and chili sauce.</p>
+      <p>I said, “What delicious bakso!” and my friends agreed. It was my favorite meal that day.</p>
+    </div>
+
+    <!-- Indonesian Translation -->
+    <div class="mt-6 bg-yellow-100 text-black p-4 rounded-md shadow space-y-3 leading-relaxed">
+      <p>Kemarin, saya pergi ke warung kecil bersama teman-teman. Kami sangat lapar setelah bermain sepak bola.</p>
+      <p>Saya memesan semangkuk bakso. Baksonya panas, pedas, dan sangat enak. Bola dagingnya besar dan empuk. Saya menambahkan mie, bawang goreng, dan sambal.</p>
+      <p>Saya berkata, “Baksonya enak banget!” dan teman-teman saya setuju. Itu adalah makanan favorit saya hari itu.</p>
+    </div>
+  </div>
+</div><br>
+
+<div class="w-full max-w-2xl bg-white p-6 rounded shadow-md text-gray-800">
+
+  <!-- Tombol Toggle -->
+  <button onclick="togglePractice('practiceBox')" 
+    class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition duration-300">
+     🎧 Practice
+  </button>
+
+  <!-- Kontainer Soal -->
+  <div id="practiceBox" class="mt-6 hidden space-y-8">
+
+    <!-- Soal 1 -->
+    <div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+      <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎧 Practice 1</h2>
+      <div class="text-center">
+        <img src="https://akcdn.detik.net.id/community/media/visual/2019/08/12/dca21bf3-923c-486f-bc2e-a3dcd759b1df_43.jpeg" alt="Food Image" class="w-64 mx-auto rounded-xl shadow mb-4">
+        <div class="flex items-center justify-center space-x-2 mb-4">
+          <p class="font-semibold text-lg" id="question1">What is the English word for this food?</p>
+          <button onclick="speakText('What is the English word for this food?')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+        </div>
+        <div id="choices1" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+          <button onclick="selectAnswer(this, 'choices1')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Meatball</button>
+          <button onclick="selectAnswer(this, 'choices1')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Chicken soup</button>
+          <button onclick="selectAnswer(this, 'choices1')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Fried rice</button>
+          <button onclick="selectAnswer(this, 'choices1')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Vegetable</button>
+        </div>
+        <div class="mt-6">
+          <button onclick="checkAnswer('Meatball', 'choices1')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded hover:bg-green-600 transition duration-300 font-semibold">✅ Check Answer</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Soal 2 -->
+    <div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+      <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎧 Practice 2</h2>
+      <div class="text-center">
+        <img src="https://cdn1-production-images-kly.akamaized.net/285eQpDwdxx1xhh5RFb38KtfhBY=/0x148:1920x1230/1280x720/filters:quality(75):strip_icc():format(webp)/kly-media-production/medias/3093328/original/069244600_1585909700-fried-2509089_1920.jpg" alt="Fried Rice" class="w-64 mx-auto rounded-xl shadow mb-4">
+        <div class="flex items-center justify-center space-x-2 mb-4">
+          <p class="font-semibold text-lg">What is the name of this food in English?</p>
+          <button onclick="speakText('What is the name of this food in English?')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+        </div>
+        <div id="choices2" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+          <button onclick="selectAnswer(this, 'choices2')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Steak</button>
+          <button onclick="selectAnswer(this, 'choices2')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Pizza</button>
+          <button onclick="selectAnswer(this, 'choices2')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Fried rice</button>
+          <button onclick="selectAnswer(this, 'choices2')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Burger</button>
+        </div>
+        <div class="mt-6">
+          <button onclick="checkAnswer('Fried rice', 'choices2')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded hover:bg-green-600 transition duration-300 font-semibold">✅ Check Answer</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Soal 3 -->
+    <div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+      <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎧 Practice 3</h2>
+      <div class="text-center">
+        <img src="https://asset.kompas.com/crops/qH6J-3lbQGm8EeJHQPqWDuDQkO8=/0x244:800x777/750x500/data/photo/2021/05/23/60a9b166c6503.jpeg" alt="Martabak" class="w-64 mx-auto rounded-xl shadow mb-4">
+        <div class="flex items-center justify-center space-x-2 mb-4">
+          <p class="font-semibold text-lg">What do you call this Indonesian dish in English?</p>
+          <button onclick="speakText('What do you call this Indonesian dish in English?')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+        </div>
+        <div id="choices3" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+          <button onclick="selectAnswer(this, 'choices3')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Stuffed omelette</button>
+          <button onclick="selectAnswer(this, 'choices3')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Pancake</button>
+          <button onclick="selectAnswer(this, 'choices3')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Noodles</button>
+          <button onclick="selectAnswer(this, 'choices3')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Sausage roll</button>
+        </div>
+        <div class="mt-6">
+          <button onclick="checkAnswer('Stuffed omelette', 'choices3')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded hover:bg-green-600 transition duration-300 font-semibold">✅ Check Answer</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Soal 4 -->
+    <div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+      <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎧 Practice 4</h2>
+      <div class="text-center">
+        <img src="https://asset.kompas.com/crops/buZORZBtCi6wAXgjlnJODvahpLk=/0x0:1000x667/1200x800/data/photo/2022/05/14/627f4186cff14.jpg" alt="Gado-Gado" class="w-64 mx-auto rounded-xl shadow mb-4">
+        <div class="flex items-center justify-center space-x-2 mb-4">
+          <p class="font-semibold text-lg">What is this healthy dish called in English?</p>
+          <button onclick="speakText('What is this healthy dish called in English?')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+        </div>
+        <div id="choices4" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+          <button onclick="selectAnswer(this, 'choices4')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Peanut salad</button>
+          <button onclick="selectAnswer(this, 'choices4')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Fruit soup</button>
+          <button onclick="selectAnswer(this, 'choices4')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Chicken curry</button>
+          <button onclick="selectAnswer(this, 'choices4')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Beef steak</button>
+        </div>
+        <div class="mt-6">
+          <button onclick="checkAnswer('Peanut salad', 'choices4')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded hover:bg-green-600 transition duration-300 font-semibold">✅ Check Answer</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Soal 5 -->
+    <div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+      <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎧 Practice 5</h2>
+      <div class="text-center">
+        <img src="https://www.dapurkobe.co.id/wp-content/uploads/sate-ayam.jpg" alt="Sate" class="w-64 mx-auto rounded-xl shadow mb-4">
+        <div class="flex items-center justify-center space-x-2 mb-4">
+          <p class="font-semibold text-lg">What is this grilled food called in English?</p>
+          <button onclick="speakText('What is this grilled food called in English?')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+        </div>
+        <div id="choices5" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+          <button onclick="selectAnswer(this, 'choices5')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Grilled fish</button>
+          <button onclick="selectAnswer(this, 'choices5')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Satay</button>
+          <button onclick="selectAnswer(this, 'choices5')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Roasted corn</button>
+          <button onclick="selectAnswer(this, 'choices5')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Hotdog</button>
+        </div>
+        <div class="mt-6">
+          <button onclick="checkAnswer('Satay', 'choices5')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded hover:bg-green-600 transition duration-300 font-semibold">✅ Check Answer</button>
+        </div>
+      </div>
+    </div>
+<!-- Soal 6 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎧 Practice 6</h2>
+  <div class="text-center">
+    <img src="https://blog.klikindomaret.com/wp-content/uploads/2022/06/homemade-dried-korean-spicy-instant-noodles-with-fried-egg-1024x683.jpg" alt="Mie Ayam" class="w-64 mx-auto rounded-xl shadow mb-4">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="font-semibold text-lg">What is the English word for this food?</p>
+      <button onclick="speakText('What is the English word for this food?')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices6" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices6')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Rice</button>
+      <button onclick="selectAnswer(this, 'choices6')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Soup</button>
+      <button onclick="selectAnswer(this, 'choices6')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Noodles</button>
+      <button onclick="selectAnswer(this, 'choices6')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Bread</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Noodles', 'choices6')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded hover:bg-green-600 transition duration-300 font-semibold">✅ Check Answer</button>
+    </div>
+  </div>
+</div>
+<!-- Soal 7 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎧 Practice 7</h2>
+  <div class="text-center">
+    <img src="https://akcdn.detik.net.id/visual/2020/04/07/8030bfe8-b51a-447c-a430-a0a6428a5ddf_169.jpeg" alt="People Eating" class="w-64 mx-auto rounded-xl shadow mb-4">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="font-semibold text-lg">What is the English word for this action?</p>
+      <button onclick="speakText('What is the English word for this action?')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices7" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices7')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Sleep</button>
+      <button onclick="selectAnswer(this, 'choices7')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Walk</button>
+      <button onclick="selectAnswer(this, 'choices7')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Eat</button>
+      <button onclick="selectAnswer(this, 'choices7')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Read</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Eat', 'choices7')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded hover:bg-green-600 transition duration-300 font-semibold">✅ Check Answer</button>
+    </div>
+  </div>
+</div>
+<!-- Soal 8 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎧 Practice 8</h2>
+  <div class="text-center">
+    <img src="https://www.yesdok.com/visual/slideshow/6bd71a2a-3546-4abb-8da9-be74b3fe5228-article-1601783977.jpeg" alt="Hungry Boy" class="w-64 mx-auto rounded-xl shadow mb-4">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="font-semibold text-lg">How does this boy feel?</p>
+      <button onclick="speakText('How does this boy feel?')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices8" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices8')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Happy</button>
+      <button onclick="selectAnswer(this, 'choices8')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Angry</button>
+      <button onclick="selectAnswer(this, 'choices8')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Hungry</button>
+      <button onclick="selectAnswer(this, 'choices8')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Tired</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Hungry', 'choices8')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded hover:bg-green-600 transition duration-300 font-semibold">✅ Check Answer</button>
+    </div>
+  </div>
+</div>
+<!-- Soal 9 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎧 Writing Practice 9</h2>
+  <div class="text-center">
+    <img src="https://www.mastergrosir.com/img/p/1/3/5/135-medium_default.jpg" alt="Bowl" class="w-64 mx-auto rounded-xl shadow mb-4">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="font-semibold text-lg">What is the English word for this object?</p>
+      <button onclick="speakText('What is the English word for this object?')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices9" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices9')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Spoon</button>
+      <button onclick="selectAnswer(this, 'choices9')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Plate</button>
+      <button onclick="selectAnswer(this, 'choices9')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Cup</button>
+      <button onclick="selectAnswer(this, 'choices9')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Bowl</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Bowl', 'choices9')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded hover:bg-green-600 transition duration-300 font-semibold">✅ Check Answer</button>
+    </div>
+  </div>
+</div>
+<!-- Soal 10 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎧 Practice 10</h2>
+  <div class="text-center">
+    <img src="https://www.asuransiku.id/support/images/upload-photos/article/1263011508.jpg" alt="Drink Water" class="w-64 mx-auto rounded-xl shadow mb-4">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="font-semibold text-lg">What is the English word for this action?</p>
+      <button onclick="speakText('What is the English word for this action?')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices10" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices10')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Wash</button>
+      <button onclick="selectAnswer(this, 'choices10')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Drink</button>
+      <button onclick="selectAnswer(this, 'choices10')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Eat</button>
+      <button onclick="selectAnswer(this, 'choices10')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Brush</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Drink', 'choices10')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded hover:bg-green-600 transition duration-300 font-semibold">✅ Check Answer</button>
+    </div>
+  </div>
+</div>
+<!-- Soal 11 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 11</h2>
+  <div class="text-center">
+    <!-- Kata dan Tombol Suara -->
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="text-2xl font-semibold text-gray-800">meatball</p>
+      <button onclick="speakText('meatball')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+
+    <!-- Pilihan Jawaban -->
+    <div id="choices11" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices11')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Bakso</button>
+      <button onclick="selectAnswer(this, 'choices11')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Mie</button>
+      <button onclick="selectAnswer(this, 'choices11')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Sup</button>
+      <button onclick="selectAnswer(this, 'choices11')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Ayam</button>
+    </div>
+
+    <!-- Tombol Cek Jawaban -->
+    <div class="mt-6">
+      <button onclick="checkAnswer('Bakso', 'choices11')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded font-semibold hover:bg-green-600 transition">
+        ✅ Check Answer
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Soal 12 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 12</h2>
+  <div class="text-center">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="text-2xl font-semibold text-gray-800">noodles</p>
+      <button onclick="speakText('noodles')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices12" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices12')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Bakso</button>
+      <button onclick="selectAnswer(this, 'choices12')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Mie</button>
+      <button onclick="selectAnswer(this, 'choices12')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Mangkok</button>
+      <button onclick="selectAnswer(this, 'choices12')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Kuah</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Mie', 'choices12')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded font-semibold hover:bg-green-600 transition">
+        ✅ Check Answer
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Soal 13 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 13</h2>
+  <div class="text-center">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="text-2xl font-semibold text-gray-800">soup</p>
+      <button onclick="speakText('soup')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices13" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices13')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Sup</button>
+      <button onclick="selectAnswer(this, 'choices13')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Ayam</button>
+      <button onclick="selectAnswer(this, 'choices13')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Tahu</button>
+      <button onclick="selectAnswer(this, 'choices13')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Nasi</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Sup', 'choices13')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded font-semibold hover:bg-green-600 transition">
+        ✅ Check Answer
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Soal 14 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 14</h2>
+  <div class="text-center">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="text-2xl font-semibold text-gray-800">bowl</p>
+      <button onclick="speakText('bowl')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices14" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices14')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Piring</button>
+      <button onclick="selectAnswer(this, 'choices14')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Sendok</button>
+      <button onclick="selectAnswer(this, 'choices14')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Mangkok</button>
+      <button onclick="selectAnswer(this, 'choices14')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Gelas</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Mangkok', 'choices14')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded font-semibold hover:bg-green-600 transition">
+        ✅ Check Answer
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Soal 15 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 15</h2>
+  <div class="text-center">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="text-2xl font-semibold text-gray-800">delicious</p>
+      <button onclick="speakText('delicious')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices15" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices15')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Manis</button>
+      <button onclick="selectAnswer(this, 'choices15')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Lezat</button>
+      <button onclick="selectAnswer(this, 'choices15')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Asin</button>
+      <button onclick="selectAnswer(this, 'choices15')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Pahit</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Lezat', 'choices15')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded font-semibold hover:bg-green-600 transition">
+        ✅ Check Answer
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Soal 16 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 16</h2>
+  <div class="text-center">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="text-2xl font-semibold text-gray-800">spicy</p>
+      <button onclick="speakText('spicy')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices16" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices16')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Pedas</button>
+      <button onclick="selectAnswer(this, 'choices16')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Tawar</button>
+      <button onclick="selectAnswer(this, 'choices16')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Asam</button>
+      <button onclick="selectAnswer(this, 'choices16')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Manis</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Pedas', 'choices16')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded font-semibold hover:bg-green-600 transition">
+        ✅ Check Answer
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Soal 17 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 17</h2>
+  <div class="text-center">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="text-2xl font-semibold text-gray-800">tasty</p>
+      <button onclick="speakText('tasty')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices17" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices17')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Hambar</button>
+      <button onclick="selectAnswer(this, 'choices17')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Asin</button>
+      <button onclick="selectAnswer(this, 'choices17')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Lezat</button>
+      <button onclick="selectAnswer(this, 'choices17')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Lembek</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Lezat', 'choices17')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded font-semibold hover:bg-green-600 transition">
+        ✅ Check Answer
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Soal 18 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 18</h2>
+  <div class="text-center">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="text-2xl font-semibold text-gray-800">broth</p>
+      <button onclick="speakText('broth')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices18" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices18')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Kuah</button>
+      <button onclick="selectAnswer(this, 'choices18')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Gorengan</button>
+      <button onclick="selectAnswer(this, 'choices18')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Lauk</button>
+      <button onclick="selectAnswer(this, 'choices18')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Sayur</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Kuah', 'choices18')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded font-semibold hover:bg-green-600 transition">
+        ✅ Check Answer
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Soal 19 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 19</h2>
+  <div class="text-center">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="text-2xl font-semibold text-gray-800">flavor</p>
+      <button onclick="speakText('flavor')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices19" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices19')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Rasa</button>
+      <button onclick="selectAnswer(this, 'choices19')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Aroma</button>
+      <button onclick="selectAnswer(this, 'choices19')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Tekstur</button>
+      <button onclick="selectAnswer(this, 'choices19')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Bentuk</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Rasa', 'choices19')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded font-semibold hover:bg-green-600 transition">
+        ✅ Check Answer
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Soal 20 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 20</h2>
+  <div class="text-center">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="text-2xl font-semibold text-gray-800">ingredient</p>
+      <button onclick="speakText('ingredient')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices20" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices20')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Bumbu</button>
+      <button onclick="selectAnswer(this, 'choices20')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Bahan</button>
+      <button onclick="selectAnswer(this, 'choices20')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Alat</button>
+      <button onclick="selectAnswer(this, 'choices20')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Tempat</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Bahan', 'choices20')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded font-semibold hover:bg-green-600 transition">
+        ✅ Check Answer
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Soal 21 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 21</h2>
+  <div class="text-center">
+    <!-- Kata Indonesia -->
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="text-2xl font-semibold text-gray-800">Bakso</p>
+      <button onclick="speakText('What is the English word for bakso?')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <!-- Pilihan Bahasa Inggris -->
+    <div id="choices21" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices21')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Meatball</button>
+      <button onclick="selectAnswer(this, 'choices21')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Chicken</button>
+      <button onclick="selectAnswer(this, 'choices21')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Soup</button>
+      <button onclick="selectAnswer(this, 'choices21')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Rice</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Meatball', 'choices21')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded font-semibold hover:bg-green-600 transition">
+        ✅ Check Answer
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Soal 22 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 22</h2>
+  <div class="text-center">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="text-2xl font-semibold text-gray-800">Mie</p>
+      <button onclick="speakText('What is the English word for mie?')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices22" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices22')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Rice</button>
+      <button onclick="selectAnswer(this, 'choices22')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Noodles</button>
+      <button onclick="selectAnswer(this, 'choices22')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Soup</button>
+      <button onclick="selectAnswer(this, 'choices22')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Spices</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Noodles', 'choices22')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded font-semibold hover:bg-green-600 transition">
+        ✅ Check Answer
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Soal 23 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 23</h2>
+  <div class="text-center">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="text-2xl font-semibold text-gray-800">Mangkok</p>
+      <button onclick="speakText('What is the English word for mangkok?')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices23" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices23')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Cup</button>
+      <button onclick="selectAnswer(this, 'choices23')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Plate</button>
+      <button onclick="selectAnswer(this, 'choices23')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Bowl</button>
+      <button onclick="selectAnswer(this, 'choices23')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Fork</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Bowl', 'choices23')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded font-semibold hover:bg-green-600 transition">
+        ✅ Check Answer
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Soal 23 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 23</h2>
+  <div class="text-center">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="text-2xl font-semibold text-gray-800">Mangkok</p>
+      <button onclick="speakText('What is the English word for mangkok?')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices23" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices23')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Cup</button>
+      <button onclick="selectAnswer(this, 'choices23')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Plate</button>
+      <button onclick="selectAnswer(this, 'choices23')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Bowl</button>
+      <button onclick="selectAnswer(this, 'choices23')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Fork</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Bowl', 'choices23')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded font-semibold hover:bg-green-600 transition">
+        ✅ Check Answer
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Soal 24 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 24</h2>
+  <div class="text-center">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="text-2xl font-semibold text-gray-800">Kuah</p>
+      <button onclick="speakText('What is the English word for kuah?')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices24" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices24')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Sauce</button>
+      <button onclick="selectAnswer(this, 'choices24')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Soup</button>
+      <button onclick="selectAnswer(this, 'choices24')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Broth</button>
+      <button onclick="selectAnswer(this, 'choices24')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Stew</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Broth', 'choices24')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded font-semibold hover:bg-green-600 transition">✅ Check Answer</button>
+    </div>
+  </div>
+</div>
+<!-- Soal 25 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 25</h2>
+  <div class="text-center">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="text-2xl font-semibold text-gray-800">Minum</p>
+      <button onclick="speakText('What is the English word for minum?')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices25" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices25')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Eat</button>
+      <button onclick="selectAnswer(this, 'choices25')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Drink</button>
+      <button onclick="selectAnswer(this, 'choices25')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Cook</button>
+      <button onclick="selectAnswer(this, 'choices25')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Chew</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Drink', 'choices25')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded font-semibold hover:bg-green-600 transition">✅ Check Answer</button>
+    </div>
+  </div>
+</div>
+<!-- Soal 26 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 26</h2>
+  <div class="text-center">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="text-2xl font-semibold text-gray-800">Makan</p>
+      <button onclick="speakText('What is the English word for makan?')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices26" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices26')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Drink</button>
+      <button onclick="selectAnswer(this, 'choices26')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Bite</button>
+      <button onclick="selectAnswer(this, 'choices26')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Eat</button>
+      <button onclick="selectAnswer(this, 'choices26')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Swallow</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Eat', 'choices26')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded font-semibold hover:bg-green-600 transition">✅ Check Answer</button>
+    </div>
+  </div>
+</div>
+<!-- Soal 27 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 27</h2>
+  <div class="text-center">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="text-2xl font-semibold text-gray-800">Lapar</p>
+      <button onclick="speakText('What is the English word for lapar?')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices27" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices27')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Hungry</button>
+      <button onclick="selectAnswer(this, 'choices27')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Full</button>
+      <button onclick="selectAnswer(this, 'choices27')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Thirsty</button>
+      <button onclick="selectAnswer(this, 'choices27')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Sleepy</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Hungry', 'choices27')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded font-semibold hover:bg-green-600 transition">✅ Check Answer</button>
+    </div>
+  </div>
+</div>
+<!-- Soal 28 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 28</h2>
+  <div class="text-center">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="text-2xl font-semibold text-gray-800">Enak</p>
+      <button onclick="speakText('What is the English word for enak?')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices28" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices28')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Tasty</button>
+      <button onclick="selectAnswer(this, 'choices28')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Salty</button>
+      <button onclick="selectAnswer(this, 'choices28')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Soft</button>
+      <button onclick="selectAnswer(this, 'choices28')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Spicy</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Tasty', 'choices28')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded font-semibold hover:bg-green-600 transition">✅ Check Answer</button>
+    </div>
+  </div>
+</div>
+<!-- Soal 29 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 29</h2>
+  <div class="text-center">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="text-2xl font-semibold text-gray-800">Pedas</p>
+      <button onclick="speakText('What is the English word for pedas?')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices29" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices29')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Sour</button>
+      <button onclick="selectAnswer(this, 'choices29')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Spicy</button>
+      <button onclick="selectAnswer(this, 'choices29')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Crunchy</button>
+      <button onclick="selectAnswer(this, 'choices29')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Fresh</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Spicy', 'choices29')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded font-semibold hover:bg-green-600 transition">✅ Check Answer</button>
+    </div>
+  </div>
+</div>
+<!-- Soal 30 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 30</h2>
+  <div class="text-center">
+    <div class="flex items-center justify-center space-x-2 mb-4">
+      <p class="text-2xl font-semibold text-gray-800">Rasa</p>
+      <button onclick="speakText('What is the English word for rasa?')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <div id="choices30" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+      <button onclick="selectAnswer(this, 'choices30')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Flavor</button>
+      <button onclick="selectAnswer(this, 'choices30')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Smell</button>
+      <button onclick="selectAnswer(this, 'choices30')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Color</button>
+      <button onclick="selectAnswer(this, 'choices30')" class="bg-white border rounded-lg px-4 py-2 hover:bg-green-50 shadow">Shape</button>
+    </div>
+    <div class="mt-6">
+      <button onclick="checkAnswer('Flavor', 'choices30')" class="bg-[#4dd4a3] text-white px-6 py-2 rounded font-semibold hover:bg-green-600 transition">✅ Check Answer</button>
+    </div>
+  </div>
+</div>
+<!-- Soal 31 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 31</h2>
+  <div class="text-center space-y-4">
+    <div class="flex justify-center items-center space-x-2">
+      <p class="text-2xl font-semibold text-gray-800">delicious</p>
+      <button onclick="speakText('delicious')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <input type="text" id="input31" placeholder="Ketik artinya dalam Bahasa Indonesia..." class="w-full border rounded px-4 py-2 shadow">
+    <div id="feedback31" class="text-sm mt-2"></div>
+    <button onclick="checkInputAnswer('input31', 'delicious', 'lezat', 'feedback31')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition duration-300">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<!-- Soal 32 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 32</h2>
+  <div class="text-center space-y-4">
+    <div class="flex justify-center items-center space-x-2">
+      <p class="text-2xl font-semibold text-gray-800">hungry</p>
+      <button onclick="speakText('hungry')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <input type="text" id="input32" placeholder="Ketik artinya dalam Bahasa Indonesia..." class="w-full border rounded px-4 py-2 shadow">
+    <div id="feedback32" class="text-sm mt-2"></div>
+    <button onclick="checkInputAnswer('input32', 'hungry', 'lapar', 'feedback32')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition duration-300">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<!-- Soal 33 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 33</h2>
+  <div class="text-center space-y-4">
+    <div class="flex justify-center items-center space-x-2">
+      <p class="text-2xl font-semibold text-gray-800">drink</p>
+      <button onclick="speakText('drink')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <input type="text" id="input33" placeholder="Ketik artinya dalam Bahasa Indonesia..." class="w-full border rounded px-4 py-2 shadow">
+    <div id="feedback33" class="text-sm mt-2"></div>
+    <button onclick="checkInputAnswer('input33', 'drink', 'minum', 'feedback33')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition duration-300">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<!-- Soal 34 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 34</h2>
+  <div class="text-center space-y-4">
+    <div class="flex justify-center items-center space-x-2">
+      <p class="text-2xl font-semibold text-gray-800">eat</p>
+      <button onclick="speakText('eat')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <input type="text" id="input34" placeholder="Ketik artinya dalam Bahasa Indonesia..." class="w-full border rounded px-4 py-2 shadow">
+    <div id="feedback34" class="text-sm mt-2"></div>
+    <button onclick="checkInputAnswer('input34', 'eat', 'makan', 'feedback34')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">✅ Check Answer</button>
+  </div>
+</div>
+<!-- Soal 35 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 35</h2>
+  <div class="text-center space-y-4">
+    <div class="flex justify-center items-center space-x-2">
+      <p class="text-2xl font-semibold text-gray-800">bowl</p>
+      <button onclick="speakText('bowl')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <input type="text" id="input35" placeholder="Ketik artinya dalam Bahasa Indonesia..." class="w-full border rounded px-4 py-2 shadow">
+    <div id="feedback35" class="text-sm mt-2"></div>
+    <button onclick="checkInputAnswer('input35', 'bowl', 'mangkok', 'feedback35')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">✅ Check Answer</button>
+  </div>
+</div>
+<!-- Soal 36 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 36</h2>
+  <div class="text-center space-y-4">
+    <div class="flex justify-center items-center space-x-2">
+      <p class="text-2xl font-semibold text-gray-800">soup</p>
+      <button onclick="speakText('soup')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <input type="text" id="input36" placeholder="Ketik artinya dalam Bahasa Indonesia..." class="w-full border rounded px-4 py-2 shadow">
+    <div id="feedback36" class="text-sm mt-2"></div>
+    <button onclick="checkInputAnswer('input36', 'soup', 'sup', 'feedback36')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">✅ Check Answer</button>
+  </div>
+</div>
+<!-- Soal 37 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 37</h2>
+  <div class="text-center space-y-4">
+    <div class="flex justify-center items-center space-x-2">
+      <p class="text-2xl font-semibold text-gray-800">spicy</p>
+      <button onclick="speakText('spicy')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <input type="text" id="input37" placeholder="Ketik artinya dalam Bahasa Indonesia..." class="w-full border rounded px-4 py-2 shadow">
+    <div id="feedback37" class="text-sm mt-2"></div>
+    <button onclick="checkInputAnswer('input37', 'spicy', 'pedas', 'feedback37')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">✅ Check Answer</button>
+  </div>
+</div>
+<!-- Soal 38 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 38</h2>
+  <div class="text-center space-y-4">
+    <div class="flex justify-center items-center space-x-2">
+      <p class="text-2xl font-semibold text-gray-800">noodles</p>
+      <button onclick="speakText('noodles')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <input type="text" id="input38" placeholder="Ketik artinya dalam Bahasa Indonesia..." class="w-full border rounded px-4 py-2 shadow">
+    <div id="feedback38" class="text-sm mt-2"></div>
+    <button onclick="checkInputAnswer('input38', 'noodles', 'mie', 'feedback38')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">✅ Check Answer</button>
+  </div>
+</div>
+<!-- Soal 39 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 39</h2>
+  <div class="text-center space-y-4">
+    <div class="flex justify-center items-center space-x-2">
+      <p class="text-2xl font-semibold text-gray-800">flavor</p>
+      <button onclick="speakText('flavor')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <input type="text" id="input39" placeholder="Ketik artinya dalam Bahasa Indonesia..." class="w-full border rounded px-4 py-2 shadow">
+    <div id="feedback39" class="text-sm mt-2"></div>
+    <button onclick="checkInputAnswer('input39', 'flavor', 'rasa', 'feedback39')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">✅ Check Answer</button>
+  </div>
+</div>
+<!-- Soal 40 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 40</h2>
+  <div class="text-center space-y-4">
+    <div class="flex justify-center items-center space-x-2">
+      <p class="text-2xl font-semibold text-gray-800">tasty</p>
+      <button onclick="speakText('tasty')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <input type="text" id="input40" placeholder="Ketik artinya dalam Bahasa Indonesia..." class="w-full border rounded px-4 py-2 shadow">
+    <div id="feedback40" class="text-sm mt-2"></div>
+    <button onclick="checkInputAnswer('input40', 'tasty', 'enak', 'feedback40')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">✅ Check Answer</button>
+  </div>
+</div>
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 41</h2>
+  <div class="text-center space-y-4">
+    <div class="flex justify-center items-center space-x-2">
+      <p class="text-2xl font-semibold text-gray-800">Lezat</p>
+      <button onclick="speakText('lezat')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <input type="text" id="input41" placeholder="Ketik terjemahan Bahasa Inggris..." class="w-full border rounded px-4 py-2 shadow">
+    <div id="feedback41" class="text-sm mt-2"></div>
+    <button onclick="checkInputAnswer('input41', 'lezat', 'delicious', 'feedback41')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<!-- Soal 42 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 42</h2>
+  <div class="text-center space-y-4">
+    <div class="flex justify-center items-center space-x-2">
+      <p class="text-2xl font-semibold text-gray-800">Lapar</p>
+      <button onclick="speakText('lapar')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <input type="text" id="input42" placeholder="Ketik terjemahan Bahasa Inggris..." class="w-full border rounded px-4 py-2 shadow">
+    <div id="feedback42" class="text-sm mt-2"></div>
+    <button onclick="checkInputAnswer('input42', 'lapar', 'hungry', 'feedback42')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<!-- Soal 43 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 43</h2>
+  <div class="text-center space-y-4">
+    <div class="flex justify-center items-center space-x-2">
+      <p class="text-2xl font-semibold text-gray-800">Minum</p>
+      <button onclick="speakText('minum')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <input type="text" id="input43" placeholder="Ketik terjemahan Bahasa Inggris..." class="w-full border rounded px-4 py-2 shadow">
+    <div id="feedback43" class="text-sm mt-2"></div>
+    <button onclick="checkInputAnswer('input43', 'minum', 'drink', 'feedback43')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<!-- Soal 44 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 44</h2>
+  <div class="text-center space-y-4">
+    <div class="flex justify-center items-center space-x-2">
+      <p class="text-2xl font-semibold text-gray-800">Sup</p>
+      <button onclick="speakText('sup')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <input type="text" id="input44" placeholder="Ketik terjemahan Bahasa Inggris..." class="w-full border rounded px-4 py-2 shadow">
+    <div id="feedback44" class="text-sm mt-2"></div>
+    <button onclick="checkInputAnswer('input44', 'sup', 'soup', 'feedback44')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<!-- Soal 45 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 45</h2>
+  <div class="text-center space-y-4">
+    <div class="flex justify-center items-center space-x-2">
+      <p class="text-2xl font-semibold text-gray-800">Mie</p>
+      <button onclick="speakText('mie')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <input type="text" id="input45" placeholder="Ketik terjemahan Bahasa Inggris..." class="w-full border rounded px-4 py-2 shadow">
+    <div id="feedback45" class="text-sm mt-2"></div>
+    <button onclick="checkInputAnswer('input45', 'mie', 'noodles', 'feedback45')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<!-- Soal 46 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 46</h2>
+  <div class="text-center space-y-4">
+    <div class="flex justify-center items-center space-x-2">
+      <p class="text-2xl font-semibold text-gray-800">Enak</p>
+      <button onclick="speakText('enak')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <input type="text" id="input46" placeholder="Ketik terjemahan Bahasa Inggris..." class="w-full border rounded px-4 py-2 shadow">
+    <div id="feedback46" class="text-sm mt-2"></div>
+    <button onclick="checkInputAnswer('input46', 'enak', 'tasty', 'feedback46')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<!-- Soal 47 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 47</h2>
+  <div class="text-center space-y-4">
+    <div class="flex justify-center items-center space-x-2">
+      <p class="text-2xl font-semibold text-gray-800">Mangkok</p>
+      <button onclick="speakText('mangkok')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <input type="text" id="input47" placeholder="Ketik terjemahan Bahasa Inggris..." class="w-full border rounded px-4 py-2 shadow">
+    <div id="feedback47" class="text-sm mt-2"></div>
+    <button onclick="checkInputAnswer('input47', 'mangkok', 'bowl', 'feedback47')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<!-- Soal 48 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 48</h2>
+  <div class="text-center space-y-4">
+    <div class="flex justify-center items-center space-x-2">
+      <p class="text-2xl font-semibold text-gray-800">Rasa</p>
+      <button onclick="speakText('rasa')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <input type="text" id="input48" placeholder="Ketik terjemahan Bahasa Inggris..." class="w-full border rounded px-4 py-2 shadow">
+    <div id="feedback48" class="text-sm mt-2"></div>
+    <button onclick="checkInputAnswer('input48', 'rasa', 'flavor', 'feedback48')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<!-- Soal 49 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 49</h2>
+  <div class="text-center space-y-4">
+    <div class="flex justify-center items-center space-x-2">
+      <p class="text-2xl font-semibold text-gray-800">Makan</p>
+      <button onclick="speakText('makan')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <input type="text" id="input49" placeholder="Ketik terjemahan Bahasa Inggris..." class="w-full border rounded px-4 py-2 shadow">
+    <div id="feedback49" class="text-sm mt-2"></div>
+    <button onclick="checkInputAnswer('input49', 'makan', 'eat', 'feedback49')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<!-- Soal 50 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🧠 Vocabulary Practice 50</h2>
+  <div class="text-center space-y-4">
+    <div class="flex justify-center items-center space-x-2">
+      <p class="text-2xl font-semibold text-gray-800">Pedas</p>
+      <button onclick="speakText('pedas')" class="text-[#4dd4a3] text-2xl hover:text-green-600 transition">🔊</button>
+    </div>
+    <input type="text" id="input50" placeholder="Ketik terjemahan Bahasa Inggris..." class="w-full border rounded px-4 py-2 shadow">
+    <div id="feedback50" class="text-sm mt-2"></div>
+    <button onclick="checkInputAnswer('input50', 'pedas', 'spicy', 'feedback50')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<!-- Soal 51 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎧 Vocabulary Listening – No. 51</h2>
+  <div class="space-y-4 text-center">
+    <button onclick="speakText('tasty')" class="text-[#4dd4a3] text-3xl hover:text-green-600 transition">🔊 Play</button>
+
+    <input type="text" id="inputEng51" placeholder="Kata Bahasa Inggris..." class="w-full border rounded px-4 py-2 shadow">
+    <input type="text" id="inputIndo51" placeholder="Artinya dalam Bahasa Indonesia..." class="w-full border rounded px-4 py-2 shadow">
+
+    <div id="feedback51" class="text-sm mt-2"></div>
+
+    <button onclick="checkDualAnswer('inputEng51','inputIndo51','tasty','enak','feedback51')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎧 Vocabulary Listening – No. 52</h2>
+  <div class="space-y-4 text-center">
+    <button onclick="speakText('noodles')" class="text-[#4dd4a3] text-3xl hover:text-green-600 transition">🔊 Play</button>
+
+    <input type="text" id="inputEng52" placeholder="Kata Bahasa Inggris..." class="w-full border rounded px-4 py-2 shadow">
+    <input type="text" id="inputIndo52" placeholder="Artinya dalam Bahasa Indonesia..." class="w-full border rounded px-4 py-2 shadow">
+
+    <div id="feedback52" class="text-sm mt-2"></div>
+
+    <button onclick="checkDualAnswer('inputEng52','inputIndo52','noodles','mie','feedback52')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎧 Vocabulary Listening – No. 53</h2>
+  <div class="space-y-4 text-center">
+    <button onclick="speakText('soup')" class="text-[#4dd4a3] text-3xl hover:text-green-600 transition">🔊 Play</button>
+
+    <input type="text" id="inputEng53" placeholder="Kata Bahasa Inggris..." class="w-full border rounded px-4 py-2 shadow">
+    <input type="text" id="inputIndo53" placeholder="Artinya dalam Bahasa Indonesia..." class="w-full border rounded px-4 py-2 shadow">
+
+    <div id="feedback53" class="text-sm mt-2"></div>
+
+    <button onclick="checkDualAnswer('inputEng53','inputIndo53','soup','sup','feedback53')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎧 Vocabulary Listening – No. 54</h2>
+  <div class="space-y-4 text-center">
+    <button onclick="speakText('bowl')" class="text-[#4dd4a3] text-3xl hover:text-green-600 transition">🔊 Play</button>
+
+    <input type="text" id="inputEng54" placeholder="Kata Bahasa Inggris..." class="w-full border rounded px-4 py-2 shadow">
+    <input type="text" id="inputIndo54" placeholder="Artinya dalam Bahasa Indonesia..." class="w-full border rounded px-4 py-2 shadow">
+
+    <div id="feedback54" class="text-sm mt-2"></div>
+
+    <button onclick="checkDualAnswer('inputEng54','inputIndo54','bowl','mangkok','feedback54')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎧 Vocabulary Listening – No. 55</h2>
+  <div class="space-y-4 text-center">
+    <button onclick="speakText('hungry')" class="text-[#4dd4a3] text-3xl hover:text-green-600 transition">🔊 Play</button>
+
+    <input type="text" id="inputEng55" placeholder="Kata Bahasa Inggris..." class="w-full border rounded px-4 py-2 shadow">
+    <input type="text" id="inputIndo55" placeholder="Artinya dalam Bahasa Indonesia..." class="w-full border rounded px-4 py-2 shadow">
+
+    <div id="feedback55" class="text-sm mt-2"></div>
+
+    <button onclick="checkDualAnswer('inputEng55','inputIndo55','hungry','lapar','feedback55')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎧 Vocabulary Listening – No. 56</h2>
+  <div class="space-y-4 text-center">
+    <button onclick="speakText('spicy')" class="text-[#4dd4a3] text-3xl hover:text-green-600 transition">🔊 Play</button>
+
+    <input type="text" id="inputEng56" placeholder="Kata Bahasa Inggris..." class="w-full border rounded px-4 py-2 shadow">
+    <input type="text" id="inputIndo56" placeholder="Artinya dalam Bahasa Indonesia..." class="w-full border rounded px-4 py-2 shadow">
+
+    <div id="feedback56" class="text-sm mt-2"></div>
+
+    <button onclick="checkDualAnswer('inputEng56','inputIndo56','spicy','pedas','feedback56')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎧 Vocabulary Listening – No. 57</h2>
+  <div class="space-y-4 text-center">
+    <button onclick="speakText('delicious')" class="text-[#4dd4a3] text-3xl hover:text-green-600 transition">🔊 Play</button>
+
+    <input type="text" id="inputEng57" placeholder="Kata Bahasa Inggris..." class="w-full border rounded px-4 py-2 shadow">
+    <input type="text" id="inputIndo57" placeholder="Artinya dalam Bahasa Indonesia..." class="w-full border rounded px-4 py-2 shadow">
+
+    <div id="feedback57" class="text-sm mt-2"></div>
+
+    <button onclick="checkDualAnswer('inputEng57','inputIndo57','delicious','lezat','feedback57')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎧 Vocabulary Listening – No. 58</h2>
+  <div class="space-y-4 text-center">
+    <button onclick="speakText('drink')" class="text-[#4dd4a3] text-3xl hover:text-green-600 transition">🔊 Play</button>
+
+    <input type="text" id="inputEng58" placeholder="Kata Bahasa Inggris..." class="w-full border rounded px-4 py-2 shadow">
+    <input type="text" id="inputIndo58" placeholder="Artinya dalam Bahasa Indonesia..." class="w-full border rounded px-4 py-2 shadow">
+
+    <div id="feedback58" class="text-sm mt-2"></div>
+
+    <button onclick="checkDualAnswer('inputEng58','inputIndo58','drink','minum','feedback58')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎧 Vocabulary Listening – No. 59</h2>
+  <div class="space-y-4 text-center">
+    <button onclick="speakText('flavor')" class="text-[#4dd4a3] text-3xl hover:text-green-600 transition">🔊 Play</button>
+
+    <input type="text" id="inputEng59" placeholder="Kata Bahasa Inggris..." class="w-full border rounded px-4 py-2 shadow">
+    <input type="text" id="inputIndo59" placeholder="Artinya dalam Bahasa Indonesia..." class="w-full border rounded px-4 py-2 shadow">
+
+    <div id="feedback59" class="text-sm mt-2"></div>
+
+    <button onclick="checkDualAnswer('inputEng59','inputIndo59','flavor','rasa','feedback59')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎧 Vocabulary Listening – No. 60</h2>
+  <div class="space-y-4 text-center">
+    <button onclick="speakText('meatball')" class="text-[#4dd4a3] text-3xl hover:text-green-600 transition">🔊 Play</button>
+
+    <input type="text" id="inputEng60" placeholder="Kata Bahasa Inggris..." class="w-full border rounded px-4 py-2 shadow">
+    <input type="text" id="inputIndo60" placeholder="Artinya dalam Bahasa Indonesia..." class="w-full border rounded px-4 py-2 shadow">
+
+    <div id="feedback60" class="text-sm mt-2"></div>
+
+    <button onclick="checkDualAnswer('inputEng60','inputIndo60','meatball','bakso','feedback60')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+<!-- Soal 61 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎙️ Pronunciation Practice – No. 61</h2>
+  <div class="space-y-4 text-center">
+    
+    <!-- Kata target -->
+    <p class="text-xl font-semibold text-gray-800">Say this word: <span class="text-[#4dd4a3] font-bold">noodles</span></p>
+    
+    <!-- Tombol untuk mulai merekam -->
+    <button onclick="startVoiceInput('voiceInput61')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      🎤 Start Speaking
+    </button>
+    
+    <!-- Input hasil suara -->
+    <input type="text" id="voiceInput61" placeholder="Kata hasil suara muncul di sini..." class="w-full border rounded px-4 py-2 shadow text-center" readonly>
+
+    <!-- Feedback -->
+    <div id="feedback61" class="text-sm mt-2"></div>
+
+    <!-- Tombol cek -->
+    <button onclick="checkVoiceAnswer('voiceInput61', 'noodles', 'feedback61')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+      ✅ Check Answer
+    </button>
+  </div>
+</div>
+
+<script>
+  let selectedButtons = {};
+
+  function togglePractice(id) {
+    const box = document.getElementById(id);
+    box.classList.toggle("hidden");
+  }
+function startVoiceInput(inputId) {
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recognition.lang = 'en-US';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
+
+  recognition.start();
+
+  recognition.onresult = function(event) {
+    const result = event.results[0][0].transcript;
+    document.getElementById(inputId).value = result;
+  };
+
+  recognition.onerror = function(event) {
+    alert('Voice recognition error: ' + event.error);
+  };
+}
+
+function checkVoiceAnswer(inputId, correctWord, feedbackId) {
+  const input = document.getElementById(inputId).value.trim().toLowerCase();
+  const feedback = document.getElementById(feedbackId);
+
+  if (input === correctWord.toLowerCase()) {
+    feedback.innerHTML = `<span class="text-green-600 font-semibold">✔️ Pengucapan benar!</span>`;
+  } else {
+    feedback.innerHTML = `<span class="text-red-600 font-semibold">❌ Salah pengucapan. Kata yang benar: <em>${correctWord}</em></span>`;
+  }
+}
+function checkDualAnswer(engId, indoId, correctEng, correctIndo, feedbackId) {
+  const engInput = document.getElementById(engId).value.trim().toLowerCase();
+  const indoInput = document.getElementById(indoId).value.trim().toLowerCase();
+  const feedback = document.getElementById(feedbackId);
+
+  const isEngCorrect = engInput === correctEng.toLowerCase();
+  const isIndoCorrect = indoInput === correctIndo.toLowerCase();
+
+  if (isEngCorrect && isIndoCorrect) {
+    feedback.innerHTML = `<span class="text-green-600 font-semibold">✔️ Kedua jawaban benar!</span>`;
+  } else {
+    let msg = "";
+    if (!isEngCorrect) {
+      msg += `❌ Kalimat Bahasa Inggris salah. Jawaban benar: <em>${correctEng}</em><br>`;
+    }
+    if (!isIndoCorrect) {
+      msg += `❌ Arti Bahasa Indonesia salah. Jawaban benar: <em>${correctIndo}</em>`;
+    }
+    feedback.innerHTML = `<span class="text-red-600 font-semibold">${msg}</span>`;
+  }
+}
+
+function checkInputAnswer(inputId, word, correct, feedbackId) {
+  const input = document.getElementById(inputId).value.trim().toLowerCase();
+  const feedback = document.getElementById(feedbackId);
+
+  if (input === correct.toLowerCase()) {
+    feedback.innerHTML = `<span class="text-green-600 font-semibold">✔️ Benar!</span>`;
+  } else {
+    feedback.innerHTML = `<span class="text-red-600 font-semibold">❌ Salah. Jawaban yang benar: <em>${correct}</em></span>`;
+  }
+}
+
+  function speakText(text) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.lang = 'en-US';
+    speechSynthesis.cancel();
+    speechSynthesis.speak(utterance);
+  }
+
+  function selectAnswer(button, groupId) {
+    speakText(button.innerText);
+    const buttons = document.querySelectorAll(`#${groupId} button`);
+    buttons.forEach(btn => {
+      btn.classList.remove("bg-green-200", "bg-red-200", "ring-2", "ring-[#4dd4a3]");
+    });
+    button.classList.add("ring-2", "ring-[#4dd4a3]");
+    selectedButtons[groupId] = button;
+  }
+
+  function checkAnswer(correctAnswer, groupId) {
+    const button = selectedButtons[groupId];
+    if (!button) {
+      alert("Please select an answer first!");
+      return;
+    }
+
+    const buttons = document.querySelectorAll(`#${groupId} button`);
+    buttons.forEach(btn => {
+      btn.classList.remove("bg-green-200", "bg-red-200");
+    });
+
+    if (button.innerText.toLowerCase() === correctAnswer.toLowerCase()) {
+      button.classList.add("bg-green-200");
+    } else {
+      button.classList.add("bg-red-200");
+
+      // Cari dan tandai jawaban yang benar
+      buttons.forEach(btn => {
+        if (btn.innerText.toLowerCase() === correctAnswer.toLowerCase()) {
+          btn.classList.add("bg-green-200");
+        }
+      });
+    }
+  }
+</script>
+
+
+
+    <script>
+        function toggleSidebar() {
+            let sidebar = document.getElementById("sidebar");
+            if (sidebar.style.left === "-250px") {
+                sidebar.style.left = "0";
+            } else {
+                sidebar.style.left = "-250px";
+            }
+        }
+    </script>
+<script>
+  function checkLogin() {
+    const user = document.getElementById("username").value;
+    const pass = document.getElementById("password").value;
+
+    // Akun yang sudah disediakan
+    const validAccounts = [
+      { username: "admin", password: "12345" },
+      { username: "user1", password: "abcde" },
+      { username: "Diza MTSN 1 Brebes 7", password: "semangatbelajar45" },
+    ];
+
+    const found = validAccounts.find(acc => acc.username === user && acc.password === pass);
+
+    if (found) {
+      document.getElementById("loginForm").style.display = "none";
+      document.getElementById("content22").classList.remove("hidden");
+    } else {
+      document.getElementById("errorMsg").innerText = "Username atau password salah!";
+    }
+  }
+</script>
+
+</body>
+</html>
