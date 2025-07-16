@@ -1470,14 +1470,19 @@ body::after {
     </button>
   </div>
 </div>
+
 <!-- Soal 61 -->
 <div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
   <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎙️ Pronunciation Practice – No. 61</h2>
   <div class="space-y-4 text-center">
 
-    <!-- Kata target -->
-    <p class="text-xl font-semibold text-gray-800">
-      Say this word: <span class="text-[#4dd4a3] font-bold">noodles</span>
+    <!-- Kata target + speaker -->
+    <p class="text-xl font-semibold text-gray-800 flex items-center justify-center gap-2">
+      Say this word: 
+      <span class="text-[#4dd4a3] font-bold">noodles</span>
+      <button onclick="speakText('noodles')" class="text-[#4dd4a3] hover:text-green-600 text-2xl">
+        🔊
+      </button>
     </p>
 
     <!-- Tombol untuk mulai merekam -->
@@ -1498,6 +1503,140 @@ body::after {
       class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
       ✅ Check Answer
     </button>
+  </div>
+</div>
+<!-- Soal 62 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎙️ Pronunciation Practice – No. 62</h2>
+  <div class="space-y-4 text-center">
+    <p class="text-xl font-semibold text-gray-800 flex items-center justify-center gap-2">
+      Say this word: <span class="text-[#4dd4a3] font-bold">meatball</span>
+      <button onclick="speakText('meatball')" class="text-[#4dd4a3] hover:text-green-600 text-2xl">🔊</button>
+    </p>
+    <button onclick="startVoiceInput('voiceInput62')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">🎤 Start Speaking</button>
+    <input type="text" id="voiceInput62" placeholder="Hasil suara muncul di sini..." class="w-full border rounded px-4 py-2 shadow text-center" readonly>
+    <div id="feedback62" class="text-sm mt-2"></div>
+    <button onclick="checkVoiceAnswer('voiceInput62', 'meatball', 'feedback62')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">✅ Check Answer</button>
+  </div>
+</div>
+
+<!-- Soal 63 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎙️ Pronunciation Practice – No. 63</h2>
+  <div class="space-y-4 text-center">
+    <p class="text-xl font-semibold text-gray-800 flex items-center justify-center gap-2">
+      Say this word: <span class="text-[#4dd4a3] font-bold">delicious</span>
+      <button onclick="speakText('delicious')" class="text-[#4dd4a3] hover:text-green-600 text-2xl">🔊</button>
+    </p>
+    <button onclick="startVoiceInput('voiceInput63')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">🎤 Start Speaking</button>
+    <input type="text" id="voiceInput63" placeholder="Hasil suara muncul di sini..." class="w-full border rounded px-4 py-2 shadow text-center" readonly>
+    <div id="feedback63" class="text-sm mt-2"></div>
+    <button onclick="checkVoiceAnswer('voiceInput63', 'delicious', 'feedback63')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">✅ Check Answer</button>
+  </div>
+</div>
+
+<!-- Soal 64 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎙️ Pronunciation Practice – No. 64</h2>
+  <div class="space-y-4 text-center">
+    <p class="text-xl font-semibold text-gray-800 flex items-center justify-center gap-2">
+      Say this word: <span class="text-[#4dd4a3] font-bold">yummy</span>
+      <button onclick="speakText('yummy')" class="text-[#4dd4a3] hover:text-green-600 text-2xl">🔊</button>
+    </p>
+    <button onclick="startVoiceInput('voiceInput64')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">🎤 Start Speaking</button>
+    <input type="text" id="voiceInput64" placeholder="Hasil suara muncul di sini..." class="w-full border rounded px-4 py-2 shadow text-center" readonly>
+    <div id="feedback64" class="text-sm mt-2"></div>
+    <button onclick="checkVoiceAnswer('voiceInput64', 'yummy', 'feedback64')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">✅ Check Answer</button>
+  </div>
+</div>
+
+<!-- Soal 65 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎙️ Pronunciation Practice – No. 65</h2>
+  <div class="space-y-4 text-center">
+    <p class="text-xl font-semibold text-gray-800 flex items-center justify-center gap-2">
+      Say this word: <span class="text-[#4dd4a3] font-bold">tasty</span>
+      <button onclick="speakText('tasty')" class="text-[#4dd4a3] hover:text-green-600 text-2xl">🔊</button>
+    </p>
+    <button onclick="startVoiceInput('voiceInput65')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">🎤 Start Speaking</button>
+    <input type="text" id="voiceInput65" placeholder="Hasil suara muncul di sini..." class="w-full border rounded px-4 py-2 shadow text-center" readonly>
+    <div id="feedback65" class="text-sm mt-2"></div>
+    <button onclick="checkVoiceAnswer('voiceInput65', 'tasty', 'feedback65')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">✅ Check Answer</button>
+  </div>
+</div>
+
+<!-- Soal 66 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎙️ Pronunciation Practice – No. 66</h2>
+  <div class="space-y-4 text-center">
+    <p class="text-xl font-semibold text-gray-800 flex items-center justify-center gap-2">
+      Say this word: <span class="text-[#4dd4a3] font-bold">spicy</span>
+      <button onclick="speakText('spicy')" class="text-[#4dd4a3] hover:text-green-600 text-2xl">🔊</button>
+    </p>
+    <button onclick="startVoiceInput('voiceInput66')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">🎤 Start Speaking</button>
+    <input type="text" id="voiceInput66" placeholder="Hasil suara muncul di sini..." class="w-full border rounded px-4 py-2 shadow text-center" readonly>
+    <div id="feedback66" class="text-sm mt-2"></div>
+    <button onclick="checkVoiceAnswer('voiceInput66', 'spicy', 'feedback66')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">✅ Check Answer</button>
+  </div>
+</div>
+
+<!-- Soal 67 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎙️ Pronunciation Practice – No. 67</h2>
+  <div class="space-y-4 text-center">
+    <p class="text-xl font-semibold text-gray-800 flex items-center justify-center gap-2">
+      Say this word: <span class="text-[#4dd4a3] font-bold">soup</span>
+      <button onclick="speakText('soup')" class="text-[#4dd4a3] hover:text-green-600 text-2xl">🔊</button>
+    </p>
+    <button onclick="startVoiceInput('voiceInput67')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">🎤 Start Speaking</button>
+    <input type="text" id="voiceInput67" placeholder="Hasil suara muncul di sini..." class="w-full border rounded px-4 py-2 shadow text-center" readonly>
+    <div id="feedback67" class="text-sm mt-2"></div>
+    <button onclick="checkVoiceAnswer('voiceInput67', 'soup', 'feedback67')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">✅ Check Answer</button>
+  </div>
+</div>
+
+<!-- Soal 68 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎙️ Pronunciation Practice – No. 68</h2>
+  <div class="space-y-4 text-center">
+    <p class="text-xl font-semibold text-gray-800 flex items-center justify-center gap-2">
+      Say this word: <span class="text-[#4dd4a3] font-bold">noodles</span>
+      <button onclick="speakText('noodles')" class="text-[#4dd4a3] hover:text-green-600 text-2xl">🔊</button>
+    </p>
+    <button onclick="startVoiceInput('voiceInput68')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">🎤 Start Speaking</button>
+    <input type="text" id="voiceInput68" placeholder="Hasil suara muncul di sini..." class="w-full border rounded px-4 py-2 shadow text-center" readonly>
+    <div id="feedback68" class="text-sm mt-2"></div>
+    <button onclick="checkVoiceAnswer('voiceInput68', 'noodles', 'feedback68')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">✅ Check Answer</button>
+  </div>
+</div>
+
+<!-- Soal 69 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎙️ Pronunciation Practice – No. 69</h2>
+  <div class="space-y-4 text-center">
+    <p class="text-xl font-semibold text-gray-800 flex items-center justify-center gap-2">
+      Say this word: <span class="text-[#4dd4a3] font-bold">hot</span>
+      <button onclick="speakText('hot')" class="text-[#4dd4a3] hover:text-green-600 text-2xl">🔊</button>
+    </p>
+    <button onclick="startVoiceInput('voiceInput69')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">🎤 Start Speaking</button>
+    <input type="text" id="voiceInput69" placeholder="Hasil suara muncul di sini..." class="w-full border rounded px-4 py-2 shadow text-center" readonly>
+    <div id="feedback69" class="text-sm mt-2"></div>
+    <button onclick="checkVoiceAnswer('voiceInput69', 'hot', 'feedback69')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">✅ Check Answer</button>
+  </div>
+</div>
+
+<!-- Soal 70 -->
+<div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
+  <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎙️ Pronunciation Practice – No. 70</h2>
+  <div class="space-y-4 text-center">
+    <p class="text-xl font-semibold text-gray-800 flex items-center justify-center gap-2">
+      Say this word: <span class="text-[#4dd4a3] font-bold">favorite</span>
+      <button onclick="speakText('favorite')" class="text-[#4dd4a3] hover:text-green-600 text-2xl">🔊</button>
+    </p>
+    <button onclick="startVoiceInput('voiceInput70')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">🎤 Start Speaking</button>
+    <input type="text" id="voiceInput70" placeholder="Hasil suara muncul di sini..." class="w-full border rounded px-4 py-2 shadow text-center" readonly>
+    <div id="feedback70" class="text-sm mt-2"></div>
+    <button onclick="checkVoiceAnswer('voiceInput70', 'favorite', 'feedback70')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">✅ Check Answer</button>
   </div>
 </div>
 
@@ -1622,8 +1761,6 @@ function checkInputAnswer(inputId, word, correct, feedbackId) {
     }
   }
 </script>
-
-
 
     <script>
         function toggleSidebar() {
