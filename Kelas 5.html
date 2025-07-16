@@ -1479,27 +1479,70 @@ body::after {
 <div class="p-6 bg-white rounded-xl shadow-lg border border-gray-200 mt-8">
   <h2 class="text-2xl font-bold text-[#4dd4a3] mb-4">🎙️ Pronunciation Practice – No. 61</h2>
   <div class="space-y-4 text-center">
-    
+
     <!-- Kata target -->
-    <p class="text-xl font-semibold text-gray-800">Say this word: <span class="text-[#4dd4a3] font-bold">noodles</span></p>
-    
+    <p class="text-xl font-semibold text-gray-800">
+      Say this word: <span class="text-[#4dd4a3] font-bold">noodles</span>
+    </p>
+
     <!-- Tombol untuk mulai merekam -->
-    <button onclick="startVoiceInput('voiceInput61')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+    <button onclick="startVoiceInput('voiceInput61')" 
+      class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
       🎤 Start Speaking
     </button>
-    
+
     <!-- Input hasil suara -->
-    <input type="text" id="voiceInput61" placeholder="Kata hasil suara muncul di sini..." class="w-full border rounded px-4 py-2 shadow text-center" readonly>
+    <input type="text" id="voiceInput61" placeholder="Hasil suara muncul di sini..." 
+      class="w-full border rounded px-4 py-2 shadow text-center" readonly>
 
     <!-- Feedback -->
     <div id="feedback61" class="text-sm mt-2"></div>
 
     <!-- Tombol cek -->
-    <button onclick="checkVoiceAnswer('voiceInput61', 'noodles', 'feedback61')" class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
+    <button onclick="checkVoiceAnswer('voiceInput61', 'noodles', 'feedback61')" 
+      class="bg-[#4dd4a3] text-white font-semibold px-6 py-2 rounded hover:bg-green-600 transition">
       ✅ Check Answer
     </button>
   </div>
 </div>
+
+<script>
+  function startVoiceInput(inputId) {
+    // Cek dukungan browser
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) {
+      alert("Browser kamu tidak mendukung speech recognition. Gunakan Google Chrome.");
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'en-US';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.start();
+
+    recognition.onresult = function(event) {
+      const result = event.results[0][0].transcript;
+      document.getElementById(inputId).value = result;
+    };
+
+    recognition.onerror = function(event) {
+      alert('Voice recognition error: ' + event.error);
+    };
+  }
+
+  function checkVoiceAnswer(inputId, correctWord, feedbackId) {
+    const input = document.getElementById(inputId).value.trim().toLowerCase();
+    const feedback = document.getElementById(feedbackId);
+
+    if (input === correctWord.toLowerCase()) {
+      feedback.innerHTML = `<span class="text-green-600 font-semibold">✔️ Pengucapan benar!</span>`;
+    } else {
+      feedback.innerHTML = `<span class="text-red-600 font-semibold">❌ Salah pengucapan. Jawaban benar: <em>${correctWord}</em></span>`;
+    }
+  }
+</script>
 
 <script>
   let selectedButtons = {};
@@ -1508,34 +1551,6 @@ body::after {
     const box = document.getElementById(id);
     box.classList.toggle("hidden");
   }
-function startVoiceInput(inputId) {
-  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-  recognition.lang = 'en-US';
-  recognition.interimResults = false;
-  recognition.maxAlternatives = 1;
-
-  recognition.start();
-
-  recognition.onresult = function(event) {
-    const result = event.results[0][0].transcript;
-    document.getElementById(inputId).value = result;
-  };
-
-  recognition.onerror = function(event) {
-    alert('Voice recognition error: ' + event.error);
-  };
-}
-
-function checkVoiceAnswer(inputId, correctWord, feedbackId) {
-  const input = document.getElementById(inputId).value.trim().toLowerCase();
-  const feedback = document.getElementById(feedbackId);
-
-  if (input === correctWord.toLowerCase()) {
-    feedback.innerHTML = `<span class="text-green-600 font-semibold">✔️ Pengucapan benar!</span>`;
-  } else {
-    feedback.innerHTML = `<span class="text-red-600 font-semibold">❌ Salah pengucapan. Kata yang benar: <em>${correctWord}</em></span>`;
-  }
-}
 function checkDualAnswer(engId, indoId, correctEng, correctIndo, feedbackId) {
   const engInput = document.getElementById(engId).value.trim().toLowerCase();
   const indoInput = document.getElementById(indoId).value.trim().toLowerCase();
