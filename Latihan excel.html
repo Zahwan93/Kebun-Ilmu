@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Belajar Microsoft Excel - 12 Pertemuan</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .accordion-content {
+      display: none;
+    }
+    .accordion-open .accordion-content {
+      display: block;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800 font-sans">
+
+  <div class="max-w-4xl mx-auto px-4 py-10">
+    <h1 class="text-3xl sm:text-4xl font-bold text-center text-green-700 mb-6">
+      📊 Belajar Microsoft Excel - 12 Pertemuan
+    </h1>
+    <p class="text-center mb-10 text-gray-600">Pelajari Microsoft Excel dari dasar hingga menengah dengan gaya interaktif!</p>
+
+    <!-- Container Accordion -->
+    <div id="accordion" class="space-y-4">
+
+      <!-- Template Accordion Items -->
+      <!-- Ulangi bagian ini untuk setiap pertemuan -->
+      <!-- Akan diisi otomatis oleh JavaScript -->
+    </div>
+  </div>
+
+  <script>
+    const sessions = [
+      {
+        title: "Pertemuan 1: Pengenalan Microsoft Excel",
+        content: `
+  <h3 class="text-lg font-semibold mb-2 text-green-700">📘 Materi Pokok</h3>
+  <p class="mb-4">
+    Microsoft Excel adalah program spreadsheet dari Microsoft Office yang digunakan untuk mengolah data dalam bentuk tabel, melakukan perhitungan, serta menyajikan data dengan grafik.
+  </p>
+  <ul class="list-disc pl-6 mb-4">
+    <li>Mengenal tampilan Excel: baris, kolom, sel, worksheet</li>
+    <li>Membuat, menyimpan, dan membuka file Excel</li>
+    <li>Mengisi data ke dalam sel</li>
+  </ul>
+
+  <h3 class="text-lg font-semibold mb-2 text-green-700">🎥 Video Pembelajaran</h3>
+  <div class="aspect-w-16 aspect-h-9 mb-4">
+    <iframe class="w-full h-64 rounded-md" src="https://www.youtube.com/embed/r9xxSvrLWwM" title="Pengenalan Microsoft Excel" frameborder="0" allowfullscreen></iframe>
+  </div>
+
+  <h3 class="text-lg font-semibold mb-2 text-green-700">🛠️ Langkah-Langkah Praktik</h3>
+  <ol class="list-decimal pl-6 mb-6 space-y-2">
+    <li>Buka Microsoft Excel di komputer/laptop Anda.</li>
+    <li>Pilih <strong>Blank Workbook</strong> untuk membuat file baru.</li>
+    <li>Isi data ke dalam sel sesuai contoh di bawah ini.</li>
+    <li>Klik <strong>File</strong> &gt; <strong>Save As</strong> untuk menyimpan file. Pilih lokasi dan beri nama file misalnya <em>Data Siswa.xlsx</em>.</li>
+    <li>Untuk membuka file yang sudah disimpan, klik <strong>File</strong> &gt; <strong>Open</strong> lalu pilih file tersebut.</li>
+  </ol>
+
+  <h3 class="text-lg font-semibold mb-2 text-green-700">📝 Latihan Praktik</h3>
+  <p class="mb-4">
+    Buatlah tabel di Excel seperti contoh berikut ini, lalu simpan dengan nama <strong>data_siswa.xlsx</strong>:
+  </p>
+
+  <div class="overflow-x-auto mb-4">
+  <table class="min-w-full table-auto border border-gray-300">
+    <thead class="bg-green-100">
+      <tr>
+        <th class="border px-4 py-2">No</th>
+        <th class="border px-4 py-2">Nama</th>
+        <th class="border px-4 py-2">Kelas</th>
+        <th class="border px-4 py-2">Nilai</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="border px-4 py-2">1</td><td class="border px-4 py-2">Ali</td><td class="border px-4 py-2">7A</td><td class="border px-4 py-2">85</td></tr>
+      <tr><td class="border px-4 py-2">2</td><td class="border px-4 py-2">Budi</td><td class="border px-4 py-2">7B</td><td class="border px-4 py-2">78</td></tr>
+      <tr><td class="border px-4 py-2">3</td><td class="border px-4 py-2">Citra</td><td class="border px-4 py-2">7A</td><td class="border px-4 py-2">90</td></tr>
+      <tr><td class="border px-4 py-2">4</td><td class="border px-4 py-2">Dian</td><td class="border px-4 py-2">7C</td><td class="border px-4 py-2">82</td></tr>
+      <tr><td class="border px-4 py-2">5</td><td class="border px-4 py-2">Eka</td><td class="border px-4 py-2">7B</td><td class="border px-4 py-2">76</td></tr>
+      <tr><td class="border px-4 py-2">6</td><td class="border px-4 py-2">Farhan</td><td class="border px-4 py-2">7C</td><td class="border px-4 py-2">88</td></tr>
+      <tr><td class="border px-4 py-2">7</td><td class="border px-4 py-2">Gita</td><td class="border px-4 py-2">7A</td><td class="border px-4 py-2">91</td></tr>
+      <tr><td class="border px-4 py-2">8</td><td class="border px-4 py-2">Hadi</td><td class="border px-4 py-2">7C</td><td class="border px-4 py-2">73</td></tr>
+      <tr><td class="border px-4 py-2">9</td><td class="border px-4 py-2">Intan</td><td class="border px-4 py-2">7B</td><td class="border px-4 py-2">80</td></tr>
+      <tr><td class="border px-4 py-2">10</td><td class="border px-4 py-2">Joko</td><td class="border px-4 py-2">7A</td><td class="border px-4 py-2">84</td></tr>
+    </tbody>
+  </table>
+</div>
+
+
+  <p class="mb-4">Tugas:</p>
+  <ul class="list-disc pl-6 space-y-2 mb-6">
+    <li>Masukkan data ke dalam Excel persis seperti tabel di atas.</li>
+    <li>Tambahkan baris ke-4 dengan data siswa baru sesuai kreativitasmu.</li>
+    <li>Simpan file di folder tugasmu dengan nama: <strong>Latihan_Pertemuan1.xlsx</strong></li>
+  </ul>
+
+  <div class="bg-green-50 border border-green-200 rounded-md p-4 text-sm text-green-800">
+    💡 <strong>Tips:</strong> Gunakan shortcut <kbd>Ctrl + S</kbd> untuk menyimpan file lebih cepat!
+  </div>
+`
+
+      },
+      {
+        title: "Pertemuan 2: Format Sel dan Tabel",
+        content: `
+          <ul class="list-disc pl-6">
+            <li>Format teks, angka, tanggal, mata uang</li>
+            <li>Wrap text, merge cell, alignment</li>
+            <li>Latihan: Tabel data keuangan rapi</li>
+          </ul>`
+      },
+      {
+        title: "Pertemuan 3: Operasi Matematika Dasar",
+        content: `
+          <ul class="list-disc pl-6">
+            <li>Operator: +, -, *, /</li>
+            <li>AutoSum dan fungsi SUM</li>
+            <li>Latihan: Menghitung total dan selisih</li>
+          </ul>`
+      },
+      {
+        title: "Pertemuan 4: Fungsi Dasar Excel",
+        content: `
+          <ul class="list-disc pl-6">
+            <li>Fungsi: AVERAGE, MAX, MIN, COUNT</li>
+            <li>Perbedaan cell relative & absolute</li>
+            <li>Latihan: Statistik nilai siswa</li>
+          </ul>`
+      },
+      {
+        title: "Pertemuan 5: Sortir dan Filter",
+        content: `
+          <ul class="list-disc pl-6">
+            <li>Sort ascending & descending</li>
+            <li>Filter data berdasarkan kriteria</li>
+            <li>Latihan: Filter data produk & nilai</li>
+          </ul>`
+      },
+      {
+        title: "Pertemuan 6: Grafik dan Chart",
+        content: `
+          <ul class="list-disc pl-6">
+            <li>Bar, Line, Pie Chart</li>
+            <li>Menambahkan label & judul grafik</li>
+            <li>Latihan: Grafik penjualan</li>
+          </ul>`
+      },
+      {
+        title: "Pertemuan 7: Fungsi IF Dasar",
+        content: `
+          <ul class="list-disc pl-6">
+            <li>Penggunaan IF sederhana</li>
+            <li>Operator logika: >, <, =</li>
+            <li>Latihan: Lulus/Tidak Lulus</li>
+          </ul>`
+      },
+      {
+        title: "Pertemuan 8: Fungsi IF Bertingkat",
+        content: `
+          <ul class="list-disc pl-6">
+            <li>Nested IF</li>
+            <li>IF dengan AND dan OR</li>
+            <li>Latihan: Grade nilai A, B, C, D</li>
+          </ul>`
+      },
+      {
+        title: "Pertemuan 9: VLOOKUP & HLOOKUP",
+        content: `
+          <ul class="list-disc pl-6">
+            <li>Mencari data dari tabel referensi</li>
+            <li>VLOOKUP dan HLOOKUP</li>
+            <li>Latihan: Harga produk berdasarkan kode</li>
+          </ul>`
+      },
+      {
+        title: "Pertemuan 10: Fungsi Teks & Tanggal",
+        content: `
+          <ul class="list-disc pl-6">
+            <li>LEFT, RIGHT, MID, LEN</li>
+            <li>TODAY, NOW</li>
+            <li>Gabung teks dengan &</li>
+          </ul>`
+      },
+      {
+        title: "Pertemuan 11: Validasi & Proteksi Data",
+        content: `
+          <ul class="list-disc pl-6">
+            <li>Data Validation: dropdown & batasan angka</li>
+            <li>Proteksi sheet & workbook</li>
+            <li>Latihan: Form input nilai</li>
+          </ul>`
+      },
+      {
+        title: "Pertemuan 12: Mini Project & Evaluasi",
+        content: `
+          <ul class="list-disc pl-6">
+            <li>Proyek: Laporan keuangan/nilai lengkap</li>
+            <li>Evaluasi penggunaan rumus & grafik</li>
+            <li>Presentasi hasil akhir</li>
+          </ul>`
+      }
+    ];
+
+    const container = document.getElementById("accordion");
+
+    sessions.forEach((session, index) => {
+      const wrapper = document.createElement("div");
+      wrapper.className = "bg-white rounded-xl shadow";
+
+      const header = document.createElement("button");
+      header.className = "w-full text-left px-6 py-4 font-semibold text-lg bg-green-100 hover:bg-green-200 transition duration-300";
+      header.innerText = session.title;
+      header.setAttribute("data-index", index);
+
+      const content = document.createElement("div");
+      content.className = "accordion-content px-6 py-4 text-gray-700";
+      content.innerHTML = session.content;
+
+      header.addEventListener("click", () => {
+        content.classList.toggle("accordion-content");
+        wrapper.classList.toggle("accordion-open");
+      });
+
+      wrapper.appendChild(header);
+      wrapper.appendChild(content);
+      container.appendChild(wrapper);
+    });
+  </script>
+</body>
+</html>
