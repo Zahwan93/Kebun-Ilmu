@@ -3,70 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Media Pembelajaran Interaktif</title>
+    <title>Kebun Ilmu - Media Pembelajaran Interaktif</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
+        /* Reset dasar */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
         body {
             display: flex;
             flex-direction: column;
-            background: #4dd4a3;
-            position: relative;
-            overflow: hidden;
+            background: #e8f9f1;
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-        
-        /* Background Elements */
+
+        /* Background dekoratif */
         .background-shapes {
             position: absolute;
             width: 100%;
             height: 100%;
             z-index: -1;
+            overflow: hidden;
         }
+
         .shape {
             position: absolute;
-            background: white;
+            background: #4dd4a3;
             border-radius: 50%;
-            opacity: 0.6;
+            opacity: 0.15;
+            animation: floating 10s infinite ease-in-out;
         }
-        .shape.one { width: 400px; height: 400px; top: -100px; right: -150px; }
-        .shape.two { width: 300px; height: 300px; bottom: -100px; left: -100px; }
-        .shape.three { width: 200px; height: 200px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
-        
+
+        .shape.one { width: 350px; height: 350px; top: -100px; right: -120px; }
+        .shape.two { width: 280px; height: 280px; bottom: -120px; left: -80px; }
+        .shape.three { width: 180px; height: 180px; top: 50%; left: 50%; transform: translate(-50%, -50%); }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-30px); }
+        }
+
+        /* Sidebar */
         .sidebar {
-            width: 250px;
+            width: 260px;
             height: 100vh;
-            background: #f8d444;
+            background: #4dd4a3;
             position: fixed;
-            left: -250px;
-            transition: left 0.3s ease-in-out;
-            padding-top: 20px;
-            z-index: 1300;
+            left: -260px;
+            top: 0;
+            padding-top: 25px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 3px 0 10px rgba(0, 0, 0, 0.2);
+            z-index: 1500;
         }
+
+        .sidebar.active {
+            left: 0;
+        }
+
         .sidebar h2 {
             color: white;
             text-align: center;
             margin-bottom: 20px;
+            font-size: 20px;
+            letter-spacing: 1px;
         }
+
         .sidebar ul {
             list-style: none;
-            padding: 10px;
+            padding: 0 15px;
         }
+
+        .sidebar ul li {
+            margin: 12px 0;
+        }
+
         .sidebar ul li a {
             text-decoration: none;
-            color: black;
+            color: #fff;
             font-size: 16px;
             display: block;
             padding: 10px;
-            transition: background 0.3s;
+            border-radius: 8px;
+            transition: 0.3s;
+            background: rgba(255, 255, 255, 0.1);
         }
+
         .sidebar ul li a:hover {
-            background: #4dd4a3;
+            background: #f8d444;
+            color: black;
+            font-weight: bold;
         }
+
+        /* Tombol toggle */
         .toggle-btn {
             position: fixed;
             left: 20px;
@@ -75,133 +109,165 @@
             cursor: pointer;
             background: #4dd4a3;
             padding: 10px;
-            border-radius: 5px;
-            color: white;
-            z-index: 1400;
-        }
-        .close-btn {
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            font-size: 24px;
-            cursor: pointer;
-            color: white;
-            background: #4dd4a3;
-            padding: 5px 10px;
-            border-radius: 5px;
-        }
-        .header {
-            background: white;
-            padding: 20px;
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            color: #f8d444;
             border-radius: 10px;
+            color: white;
+            z-index: 2000;
+            transition: background 0.3s;
+        }
+
+        .toggle-btn:hover {
+            background: #3bb68c;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            background: white;
+            padding: 15px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #4dd4a3;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
             position: sticky;
             top: 0;
             z-index: 1200;
         }
+
+        .header img {
+            height: 40px;
+        }
+
+        /* Konten */
         .content {
             text-align: center;
             padding: 20px;
+            margin-top: 10px;
         }
+
+        .content p {
+            font-size: 18px;
+            color: #444;
+        }
+
+        /* Card container */
         .card-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px;
             padding: 20px;
+            margin-bottom: 30px;
         }
+
         .card {
             padding: 20px;
-            width: 250px;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            text-align: center;
+            border-radius: 15px;
             background: #f8d444;
             color: white;
-            transition: transform 0.3s, box-shadow 0.3s;
+            font-weight: bold;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s;
+            text-align: center;
         }
+
         .card:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
+            background: #ffcd00;
         }
+
         .card a {
             text-decoration: none;
-            font-size: 18px;
             color: white;
-            font-weight: bold;
+            font-size: 18px;
+        }
+
+        /* Responsif */
+        @media screen and (max-width: 768px) {
+            .header {
+                font-size: 18px;
+            }
+
+            .header img {
+                height: 35px;
+            }
+
+            .sidebar {
+                width: 220px;
+            }
+
+            .card-container {
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            }
         }
     </style>
 </head>
 <body>
+
+    <!-- Background -->
     <div class="background-shapes">
         <div class="shape one"></div>
         <div class="shape two"></div>
         <div class="shape three"></div>
     </div>
-    
+
+    <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
-        <span class="close-btn" onclick="toggleSidebar()">&times;</span>
         <h2>Menu</h2>
         <ul>
-	    <li><a href="Kelas 5.html">Matematika SD</a></li>
-            <li><a href="Latihan excel.html">Latihan excel SMP</a></li>
+            <li><a href="Kelas 5.html">Matematika SD</a></li>
+            <li><a href="Latihan excel.html">Latihan Excel SMP</a></li>
             <li><a href="https://zahwan93.github.io/Kebun-Ilmu-IPA-SMP/">IPA SMP</a></li>
-	    <li><a href="https://zahwan93.github.io/Kebun-Ilmu-B.-Inggris/">B. Inggris SMP</a></li>
+            <li><a href="https://zahwan93.github.io/Kebun-Ilmu-B.-Inggris/">B. Inggris SMP</a></li>
             <li><a href="https://kebunilmu.github.io/mateamtika-sma/">Matematika SMA</a></li>
-			<li><a href="https://kebunilmu.github.io/B.-Inggris-SMA/">B. Inggris SMA</a></li>
+            <li><a href="https://kebunilmu.github.io/B.-Inggris-SMA/">B. Inggris SMA</a></li>
             <li><a href="https://kebunilmu.github.io/biologi-sma/">Biologi SMA</a></li>
-	    <li><a href="https://kebunilmu.github.io/fisika-sma/">Fisika SMA</a></li>
-	    <li><a href="https://kebunilmu.github.io/kimia-sma/">Kimia SMA</a></li>
-			<li><a href="https://kebunilmu.github.io/Kebun-Ilmu-TKA/">Tes Kemampuan Akademik (TKA)</a></li>
-			<li><a href="https://kebunilmu.github.io/Cambridge/">Cambridge</a></li>
+            <li><a href="https://kebunilmu.github.io/fisika-sma/">Fisika SMA</a></li>
+            <li><a href="https://kebunilmu.github.io/kimia-sma/">Kimia SMA</a></li>
+            <li><a href="https://kebunilmu.github.io/Kebun-Ilmu-TKA/">Tes Kemampuan Akademik (TKA)</a></li>
+            <li><a href="https://kebunilmu.github.io/Cambridge/">Cambridge</a></li>
         </ul>
     </div>
-    
+
+    <!-- Tombol Sidebar -->
     <div class="toggle-btn" onclick="toggleSidebar()">
         <i class="fas fa-bars"></i>
     </div>
-    
-    <div class="header">Media Pembelajaran Interaktif</div>
-    
-    <div class="content">
-        <p>Selamat datang di media pembelajaran interaktif!</p>
+
+    <!-- Header -->
+    <div class="header">
+        <img src="https://zahwan93.github.io/Kebun-Ilmu-Matematika-SMP/logo.png" alt="Logo">
+        Kebun Ilmu - Media Pembelajaran Interaktif
     </div>
-    
+
+    <!-- Konten -->
+    <div class="content">
+        <p>Selamat datang di <b>Kebun Ilmu</b>! Pilih materi pembelajaran sesuai jenjangmu.</p>
+    </div>
+
+    <!-- Card -->
     <div class="card-container">
         <div class="card"><a href="https://zahwan93.github.io/matematika-SD/">Matematika SD</a></div>
-	<div class="card"><a href="https://zahwan93.github.io/Kebun-Ilmu-Matematika-SMP/">Matematika SMP</a></div>
-        <div class="card"><a href="https://zahwan93.github.io/Kebun-Ilmu-IPA-SMP/">IPA SMP</a></div>	    
-	<div class="card"><a href="https://zahwan93.github.io/Kebun-Ilmu-B.-Inggris/">B. Inggris SMP</a></div>
+        <div class="card"><a href="https://zahwan93.github.io/Kebun-Ilmu-Matematika-SMP/">Matematika SMP</a></div>
+        <div class="card"><a href="https://zahwan93.github.io/Kebun-Ilmu-IPA-SMP/">IPA SMP</a></div>
+        <div class="card"><a href="https://zahwan93.github.io/Kebun-Ilmu-B.-Inggris/">B. Inggris SMP</a></div>
         <div class="card"><a href="https://kebunilmu.github.io/mateamtika-sma/">Matematika SMA</a></div>
-		<div class="card"><a href="https://kebunilmu.github.io/B.-Inggris-SMA/">B. Inggris SMA</a></div>
+        <div class="card"><a href="https://kebunilmu.github.io/B.-Inggris-SMA/">B. Inggris SMA</a></div>
         <div class="card"><a href="https://kebunilmu.github.io/biologi-sma/">Biologi SMA</a></div>
-	<div class="card"><a href="https://kebunilmu.github.io/Fisika-SMA/">Fisika SMA</a></div>
-	<div class="card"><a href="https://kebunilmu.github.io/kimia-sma/">Kimia SMA</a></div>
-		<div class="card"><a href="https://kebunilmu.github.io/Kebun-Ilmu-TKA">Tes Kemampuan Akademik (TKA)</a></div>
-		<div class="card"><a href="https://zahwan93.github.io//Cambridge/">Cambridge</a></div>
+        <div class="card"><a href="https://kebunilmu.github.io/Fisika-SMA/">Fisika SMA</a></div>
+        <div class="card"><a href="https://kebunilmu.github.io/kimia-sma/">Kimia SMA</a></div>
+        <div class="card"><a href="https://kebunilmu.github.io/Kebun-Ilmu-TKA">Tes Kemampuan Akademik (TKA)</a></div>
+        <div class="card"><a href="https://zahwan93.github.io//Cambridge/">Cambridge</a></div>
     </div>
-    
+
     <script>
         function toggleSidebar() {
             let sidebar = document.getElementById("sidebar");
-            sidebar.style.left = sidebar.style.left === "-250px" ? "0" : "-250px";
+            sidebar.classList.toggle("active");
         }
     </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
